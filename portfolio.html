@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Work | Design Dunes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #1b4a38;
+            --forest-dark: #122e23;
+            --forest-mid: #2a6048;
+            --gold: #c9a84c;
+            --gold-light: #dfc077;
+            --gold-pale: #f0dfa0;
+            --cream: #faf6f0;
+            --blush: #f5ede3;
+            --text: #2c2c2c;
+            --text-light: #5a5a5a;
+            --white: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 16px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(250, 246, 240, 0.96);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+        }
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--forest-dark);
+            text-decoration: none;
+        }
+        .nav-logo span { color: var(--gold); }
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--forest);
+            transition: color 0.3s;
+        }
+        .nav-back:hover { color: var(--gold); }
+        .nav-back svg { transition: transform 0.3s; }
+        .nav-back:hover svg { transform: translateX(-4px); }
+
+        /* HERO */
+        .port-hero {
+            min-height: 50vh;
+            background: var(--forest-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 6% 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .port-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&q=80&w=1800') center/cover;
+            opacity: 0.18;
+        }
+        .port-hero-content { position: relative; z-index: 2; }
+        .port-eyebrow {
+            font-size: 0.6rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+        .port-eyebrow::before, .port-eyebrow::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+        }
+        .port-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 6vw, 6rem);
+            font-weight: 300;
+            color: var(--cream);
+            line-height: 1.1;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        .port-title em { font-style: italic; color: var(--gold-light); }
+        .port-subtitle {
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            color: rgba(250,246,240,0.45);
+            text-transform: uppercase;
+        }
+
+        /* CATEGORY NAV */
+        /* FIX: nav height = ~70px (main nav) + cat-nav itself; offset scroll target by combined height */
+        .cat-nav {
+            background: var(--cream);
+            border-bottom: 1px solid rgba(201,168,76,0.2);
+            padding: 0 6%;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+            position: sticky;
+            top: 69px; /* sits directly under main nav */
+            z-index: 100;
+        }
+        .cat-nav::-webkit-scrollbar { display: none; }
+        .cat-btn {
+            padding: 18px 24px;
+            font-size: 0.6rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            cursor: pointer;
+            border: none;
+            background: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .cat-btn:hover, .cat-btn.active {
+            color: var(--forest);
+            border-bottom-color: var(--gold);
+        }
+
+        /* CATEGORY SECTIONS */
+        .category-section {
+            padding: 80px 6%;
+            /* FIX: offset anchor so sticky nav doesn't cover section heading */
+            scroll-margin-top: 130px;
+        }
+        .category-section:nth-child(even) {
+            background: var(--blush);
+        }
+        .cat-header {
+            max-width: 1280px;
+            margin: 0 auto 50px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 30px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid rgba(201,168,76,0.2);
+        }
+        .cat-label {
+            font-size: 0.58rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .cat-label::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
+        .cat-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 3.5vw, 3.2rem);
+            font-weight: 300;
+            color: var(--forest-dark);
+            line-height: 1.15;
+        }
+        .cat-desc {
+            font-size: 0.78rem;
+            line-height: 2;
+            color: var(--text-light);
+            max-width: 420px;
+        }
+
+        /* PHOTO GRIDS */
+        .photo-grid-3 {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+        .photo-grid-feature {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.6fr 1fr 1fr;
+            grid-template-rows: 320px 260px;
+            gap: 6px;
+        }
+        .photo-grid-feature .photo-item:first-child {
+            grid-row: span 2;
+        }
+        .photo-grid-2col {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+        /* FIX: photo-grid-2col images had no height — they collapsed */
+        .photo-grid-2col .photo-item img {
+            min-height: 360px;
+        }
+
+        .photo-grid-masonry {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+        /* FIX: give masonry items visual height variation */
+        .photo-grid-masonry .photo-item:nth-child(odd) img  { min-height: 420px; }
+        .photo-grid-masonry .photo-item:nth-child(even) img { min-height: 300px; }
+
+        .photo-item {
+            overflow: hidden;
+            position: relative;
+            background: var(--forest-dark);
+            cursor: pointer;
+        }
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.6s;
+            filter: brightness(0.88) saturate(0.9);
+            min-height: 280px;
+        }
+        .photo-item:hover img {
+            transform: scale(1.07);
+            filter: brightness(0.72) saturate(0.85);
+        }
+        .photo-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 55%, rgba(18,46,35,0.75) 100%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .photo-item:hover::after { opacity: 1; }
+        .photo-caption {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 20px 22px;
+            z-index: 2;
+            transform: translateY(10px);
+            opacity: 0;
+            transition: all 0.5s;
+        }
+        .photo-item:hover .photo-caption {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .photo-caption p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--cream);
+        }
+        .photo-caption span {
+            font-size: 0.55rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        /* TALL / MEDIUM HELPERS */
+        .photo-item.tall img   { min-height: 500px; }
+        .photo-item.medium img { min-height: 360px; }
+
+        /* CTA */
+        .port-cta {
+            background: var(--forest-dark);
+            padding: 100px 6%;
+            text-align: center;
+        }
+        .port-cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            color: var(--cream);
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+        .port-cta h2 em { font-style: italic; color: var(--gold-light); }
+        .port-cta p {
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(250,246,240,0.45);
+            margin-bottom: 48px;
+        }
+        .btn-gold {
+            display: inline-block;
+            padding: 16px 38px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.66rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.77,0,0.175,1);
+            z-index: -1;
+        }
+        .btn-gold:hover { color: var(--forest-dark); }
+        .btn-gold:hover::before { transform: scaleX(1); }
+
+        .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* RESPONSIVE */
+        @media (max-width: 960px) {
+            .photo-grid-3 { grid-template-columns: 1fr 1fr; }
+            .photo-grid-feature {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+            }
+            .photo-grid-feature .photo-item:first-child { grid-row: span 1; }
+            .photo-grid-2col { grid-template-columns: 1fr; }
+            .photo-grid-masonry { grid-template-columns: 1fr 1fr; }
+            .cat-header { flex-direction: column; align-items: flex-start; }
+        }
+        @media (max-width: 600px) {
+            .photo-grid-3     { grid-template-columns: 1fr; }
+            .photo-grid-masonry { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="index.html" class="nav-logo">Design <span>Dunes</span></a>
+        <a href="index.html" class="nav-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14">
+                <path d="M19 12H5M12 5l-7 7 7 7"/>
+            </svg>
+            Back to Home
+        </a>
+    </nav>
+
+    <!-- HERO -->
+    <div class="port-hero">
+        <div class="port-hero-content">
+            <p class="port-eyebrow">Our Portfolio</p>
+            <h1 class="port-title">Spaces We&rsquo;ve<br><em>Brought to Life</em></h1>
+            <p class="port-subtitle">Every room. Every detail. Perfected.</p>
+        </div>
+    </div>
+
+    <!-- CATEGORY NAV -->
+    <div class="cat-nav" id="catNav">
+        <button class="cat-btn active" data-target="commercial">Commercial</button>
+        <button class="cat-btn" data-target="bedrooms">Bedrooms</button>
+        <button class="cat-btn" data-target="living">Living Rooms</button>
+        <button class="cat-btn" data-target="kitchen">Kitchens</button>
+        <button class="cat-btn" data-target="balcony">Balcony</button>
+        <button class="cat-btn" data-target="bathrooms">Bathrooms</button>
+        <button class="cat-btn" data-target="dining">Dining Spaces</button>
+        <button class="cat-btn" data-target="cafes">Cafes</button>
+    </div>
+
+    <!-- 1. COMMERCIAL SPACES -->
+    <div class="category-section" id="commercial">
+        <div class="cat-header fade-up">
+            <div>
+                <p class="cat-label">01 &middot; Commercial</p>
+                <h2 class="cat-title">Commercial<br>Spaces</h2>
+            </div>
+            <p class="cat-desc">Offices, showrooms, and corporate environments designed to inspire productivity, impress clients, and embody brand identity with architectural precision.</p>
+        </div>
+        <div class="photo-grid-feature fade-up">
+            <div class="photo-item tall">
+                <!-- FIX: removed escaped quotes \' from all onerror attributes — invalid in HTML -->
+                <img src="Commercial Spaces 1.JPG.jpeg">
+                <div class="photo-caption"><p>The Pinnacle Office</p><span>Corporate &middot; Hyderabad</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="Commercial Spaces 2.JPG.jpeg">
+                <div class="photo-caption"><p>Grand Lobby</p><span>Reception &middot; Bangalore</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="Commercial Spaces 3.JPG.jpeg">
+                <div class="photo-caption"><p>Boardroom Suite</p><span>Conference &middot; Hyderabad</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="Commercial Spaces 4.JPG.jpeg">
+                <div class="photo-caption"><p>Luxury Showroom</p><span>Retail &middot; Vizag</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="Commercial Spaces 5.JPG.jpeg">
+                <div class="photo-caption"><p>Co-working Hub</p><span>Collaborative &middot; Chennai</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. BEDROOMS -->
+    <div class="category-section" id="bedrooms">
+        <div class="cat-header fade-up">
+            <div>
+                <p class="cat-label">02 &middot; Bedrooms</p>
+                <h2 class="cat-title">Master<br>Sanctuaries</h2>
+            </div>
+            <p class="cat-desc">Serene, deeply layered bedroom retreats with custom joinery, bespoke upholstery, and a calm sophistication that makes rest feel like luxury.</p>
+        </div>
+        <div class="photo-grid-3 fade-up">
+            <div class="photo-item medium">
+                <img src="Bedroom 1.JPG.jpeg">
+                <div class="photo-caption"><p>The Serenity Suite</p><span>Master Bedroom &middot; Villa</span></div>
+            </div>
+            <div class="photo-item medium">
+                <img src="Bedroom 2.JPG.jpeg">
+                <div class="photo-caption"><p>Ivory &amp; Walnut</p><span>Guest Suite &middot; Penthouse</span></div>
+            </div>
+            <div class="photo-item medium">
+                <img src="Bedroom 3.JPG.jpeg">
+                <div class="photo-caption"><p>Dreamer&rsquo;s Room</p><span>Children&rsquo;s Bedroom</span></div>
+            </div>
+            <div class="photo-item medium">
+                <img src="Bedroom 4.JPG.jpeg">
+                <div class="photo-caption"><p>Walk-in Wardrobe</p><span>Dressing Room &middot; Villa</span></div>
+            </div>
+            <div class="photo-item medium">
+                <img src="Bedroom 5.JPG.jpeg">
+                <div class="photo-caption"><p>Wabi-sabi Retreat</p><span>Minimal Suite &middot; Flat</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. LIVING ROOMS -->
+    <div class="category-section" id="living">
+        <div class="cat-header fade-up">
+            <div>
+                <p class="cat-label">03 &middot; Living Rooms</p>
+                <h2 class="cat-title">Curated<br>Living Rooms</h2>
+            </div>
+            <p class="cat-desc">Statement furniture, art curation, and layered lighting that transforms your primary gathering space into something close to theatre.</p>
+        </div>
+        <div class="photo-grid-feature fade-up">
+            <div class="photo-item tall">
+                <img src="Living Room 1.JPG.jpeg">
+                <div class="photo-caption"><p>The Grand Salon</p><span>Living Room &middot; Villa</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="Living Room 2.JPG.jpeg">
+                <div class="photo-caption"><p>Urban Elegance</p><span>Contemporary &middot; Flat</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="Living Room 3.JPG.jpeg">
+                <div class="photo-caption"><p>Warm Embrace</p><span>Cosy Living &middot; Duplex</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="Living Room 4.JPG.jpeg">
+                <div class="photo-caption"><p>Pure Form</p><span>Minimalist &middot; Apartment</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="Living Room 5.JPG.jpeg">
+                <div class="photo-caption"><p>Open Canvas</p><span>Open Plan &middot; Penthouse</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. KITCHEN -->
+    <div class="category-section" id="kitchen">
+        <div class="cat-header fade-up">
+            <div>
+                <p class="cat-label">04 &middot; Kitchens</p>
+                <h2 class="cat-title">Bespoke<br>Kitchens</h2>
+            </div>
+            <p class="cat-desc">Italian lacquer, brass hardware, and smart layouts engineered for the discerning cook and the elegant host. Form and function in perfect harmony.</p>
+        </div>
+        <div class="photo-grid-3 fade-up">
+            <div class="photo-item medium">
+                <img src="Kitchen 1.JPG.jpeg">
+                <div class="photo-caption"><p>Chef&rsquo;s Canvas</p><span>Modular Kitchen &middot; Villa</span></div>
+            </div>
+            <div class="photo-item medium">
+                <img src="Kitchen 2.JPG.jpeg">
+                <div class="photo-caption"><p>Blanc Luxe</p><span>Open Kitchen &middot; Penthouse</span></div>
+            </div>
+            <div class="photo-item medium">
+                <img src="Kitchen 3.JPG.jpeg">
+                <div class="photo-caption"><p>Midnight Forge</p><span>Dark Kitchen &middot; Duplex</span></div>
+            </div>
+            <div class="photo-item medium">
+                <img src="Kitchen 4.JPG.jpeg">
+                <div class="photo-caption"><p>The Island</p><span>Kitchen Island &middot; Bungalow</span></div>
+            </div>
+            <!-- FIX: was using exact same image URL as "The Island" above — replaced with unique image -->
+            <div class="photo-item medium">
+                <img src="Kitchen 5.JPG.jpeg">
+                <div class="photo-caption"><p>Smart Compact</p><span>Modular &middot; Apartment</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. BALCONY -->
+    <div class="category-section" id="balcony">
+        <div class="cat-header fade-up">
+            <div>
+                <p class="cat-label">05 &middot; Balcony</p>
+                <h2 class="cat-title">Outdoor<br>Living Spaces</h2>
+            </div>
+            <p class="cat-desc">Thoughtfully designed balconies and terraces that extend your living space outdoors — a private escape designed for morning coffee and golden evenings.</p>
+        </div>
+        <div class="photo-grid-2col fade-up">
+            <div class="photo-item">
+                <img src="bal1.jpeg">
+                <div class="photo-caption"><p>The Sky Garden</p><span>Balcony &middot; Penthouse</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="bal2.jpeg">
+                <div class="photo-caption"><p>Terrace Lounge</p><span>Outdoor Living &middot; Villa</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="Balcony 3.JPG.jpeg">
+                <div class="photo-caption"><p>Morning Retreat</p><span>Balcony &middot; Apartment</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="Balcony 4.JPG.jpeg">
+                <div class="photo-caption"><p>Al Fresco Dining</p><span>Terrace &middot; Bungalow</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. BATHROOMS -->
+    <div class="category-section" id="bathrooms">
+        <div class="cat-header fade-up">
+            <div>
+                <p class="cat-label">06 &middot; Bathrooms</p>
+                <h2 class="cat-title">Spa-Grade<br>Bathrooms</h2>
+            </div>
+            <p class="cat-desc">Marble surfaces, rainfall showers, and bespoke vanities that turn the daily ritual of bathing into an indulgent sensory experience.</p>
+        </div>
+        <div class="photo-grid-masonry fade-up">
+            <div class="photo-item medium">
+                <img src="Bathroom 1.JPG.jpeg">
+                <div class="photo-caption"><p>Marble Sanctuary</p><span>Master Bath &middot; Villa</span></div>
+            </div>
+            <div class="photo-item medium">
+                <img src="Bathroom 2.JPG.jpeg">
+                <div class="photo-caption"><p>Obsidian &amp; Brass</p><span>Guest Bath &middot; Penthouse</span></div>
+            </div>
+            <div class="photo-item medium">
+                <img src="Bathroom 5.JPG.jpeg">
+                <div class="photo-caption"><p>Zen Basin</p><span>Minimal Bath &middot; Flat</span></div>
+            </div>
+            <div class="photo-item medium">
+                <img src="Bathroom 4.JPG.jpeg">
+                <div class="photo-caption"><p>Freestanding Haven</p><span>Spa Bath &middot; Bungalow</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. DINING SPACE -->
+    <div class="category-section" id="dining">
+        <div class="cat-header fade-up">
+            <div>
+                <p class="cat-label">07 &middot; Dining Spaces</p>
+                <h2 class="cat-title">Dining<br>Experiences</h2>
+            </div>
+            <p class="cat-desc">Dining rooms designed to gather, celebrate, and linger — where every chair, chandelier, and tabletop is chosen with intention and artistry.</p>
+        </div>
+        <div class="photo-grid-feature fade-up">
+            <div class="photo-item tall">
+                <img src="Dining Space 1.JPG.jpeg">
+                <div class="photo-caption"><p>The Banquet</p><span>Formal Dining &middot; Villa</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="Dining Space 2.JPG.jpeg">
+                <div class="photo-caption"><p>Contemporary Table</p><span>Dining &middot; Flat</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="Dining Space 3.JPG.jpeg">
+                <div class="photo-caption"><p>Open Feast</p><span>Open Plan &middot; Penthouse</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="Dining Space 4.JPG.jpeg">
+                <div class="photo-caption"><p>Intimate Gather</p><span>Cosy Dining &middot; Duplex</span></div>
+            </div>
+            <div class="photo-item">
+                <img src="Dining Space 5.JPG.jpeg">
+                <div class="photo-caption"><p>Art &amp; Table</p><span>Statement Dining &middot; Bungalow</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. CAFES -->
+    <div class="category-section" id="cafes">
+        <div class="cat-header fade-up">
+            <div>
+                <p class="cat-label">08 &middot; Cafes</p>
+                <h2 class="cat-title">Cafe &amp;<br>Hospitality</h2>
+            </div>
+            <p class="cat-desc">Cafe and restaurant interiors that create atmosphere, drive footfall, and turn first-time visitors into loyal regulars through immersive design.</p>
+        </div>
+        <div class="photo-grid-3 fade-up">
+            <div class="photo-item medium">
+                <img src="caf1.jpeg">
+                <div class="photo-caption"><p>The Corner Table</p><span>Neighborhood Cafe</span></div>
+            </div>
+            <div class="photo-item medium">
+                <img src="Cafe 3.JPG.jpeg">
+                <div class="photo-caption"><p>The Iron Press</p><span>Industrial Cafe &middot; Vizag</span></div>
+            </div>
+            <div class="photo-item medium">
+                <img src="Cafe 4.JPG.jpeg">
+                <div class="photo-caption"><p>Gold &amp; Glass</p><span>Luxury Cafe &middot; Hyderabad</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="port-cta">
+        <h2>Your Space Deserves<br><em>This Treatment</em></h2>
+        <p>Let&rsquo;s begin the conversation</p>
+        <a href="tel:8688669816" class="btn-gold">Call Us &nbsp; +91 8688 669 816</a>
+    </div>
+
+    <script>
+        // Intersection Observer for fade-up animations
+        const fadeObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+        // FIX: smooth scroll with correct offset accounting for both sticky bars
+        const NAV_OFFSET = 130; // main nav (~70px) + cat-nav (~58px) + small buffer
+        const catBtns = document.querySelectorAll('.cat-btn');
+        const catNavEl = document.getElementById('catNav');
+
+        catBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = document.getElementById(btn.dataset.target);
+                if (target) {
+                    const top = target.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Highlight active category button on scroll
+        const sections = document.querySelectorAll('.category-section');
+        const scrollObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    catBtns.forEach(btn => {
+                        btn.classList.toggle('active', btn.dataset.target === id);
+                    });
+                    // FIX: scroll active button into view without jarring page movement
+                    const activeBtn = catNavEl.querySelector('.cat-btn.active');
+                    if (activeBtn) {
+                        activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    }
+                }
+            });
+        }, { threshold: 0.35 });
+        sections.forEach(s => scrollObserver.observe(s));
+    </script>
+</body>
+</html>
